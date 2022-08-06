@@ -22,7 +22,7 @@ pipeline {
         }
         stage('ansible deploy') {
             steps {
-                sh 'ansible-playbook main.yml -i dev --user jenkins --key-file ~/.ssh/id_rsa'
+                sh 'ansible-playbook main.yml -i dev --user jenkins'
             }
         }
     }
