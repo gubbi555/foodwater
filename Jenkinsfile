@@ -14,10 +14,7 @@ pipeline {
              
           }
         }
-         stage('Tools Init') {
-            steps {
-                tool name: 'ansible', type: 'org.jenkinsci.plugins.ansible.AnsibleInstallation'       
-            }
+         
             }
         }
      
