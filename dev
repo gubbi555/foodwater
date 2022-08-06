@@ -1,2 +1,2 @@
 [all]
-54.237.29.37
+172.31.22.159 ansible_ssh_user=root ansible_ssh_pass=9535156873
