@@ -1,46 +1,28 @@
 pipeline {
     agent any
-    
-    tools
-    {
-       maven "Maven"
+    tools {
+        maven "Maven"
     }
-     
+
     stages {
-      stage('checkout') {
-           steps {
-             
+        stage('git clone') {
+            steps {
                 git branch: 'main', url: 'https://github.com/gubbi555/foodwater'
-             
-          }
-        }
-         
             }
         }
-     
-        
-         stage('Execute Maven') {
-           steps {
-             
-                sh 'mvn package'             
-          }
-        }
-        
-        
-         
-        
-        
-        
-        stage('Ansible Deploy') {
-             
+        stage ('ansible init'){
             steps {
-                 
-             
-               
-               sh "ansible-playbook main.yml -i dev --user jenkins --key-file ~/.ssh/id_rsa"
-
-               
-            
+                tool name: 'Ansible', type: 'org.jenkinsci.plugins.ansible.AnsibleInstallation'
+            }
+        }
+        stage ('maven build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('ansible deploy') {
+            steps {
+                sh 'ansible-playbook main.yml -i dev --user jenkins --key-file ~/.ssh/id_rsa'
             }
         }
     }
